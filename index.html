@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MERSH KASHMIR | Authentic Saffron, Pashmina & Dry Fruits</title>
     <meta name="description" content="Buy authentic Kashmiri Saffron, Mamra Almonds, Walnuts, and Handwoven Pashmina Shawls directly from the valley.">
     
@@ -41,6 +41,10 @@
                     },
                     boxShadow: {
                         'inner-lg': 'inset 0 4px 6px -1px rgb(0 0 0 / 0.05), inset 0 2px 4px -2px rgb(0 0 0 / 0.05)'
+                    },
+                    screens: {
+                        'md': '768px',
+                        'lg': '1024px',
                     }
                 }
             }
@@ -70,13 +74,18 @@
         /* Modal Transitions */
         .modal-overlay { transition: opacity 0.3s ease; }
         .modal-content-box { transition: transform 0.3s ease; }
+        
+        /* Mobile Specific Overrides */
+        @media (max-width: 768px) {
+            .no-hover-mobile:hover { transform: none !important; box-shadow: none !important; }
+        }
     </style>
 </head>
-<body class="bg-earth-base text-earth-text antialiased selection:bg-earth-mustard selection:text-white">
+<body class="bg-earth-base text-earth-text antialiased selection:bg-earth-mustard selection:text-white overflow-x-hidden">
 
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl bg-earth-base/90 backdrop-blur-md border border-earth-text/10 rounded-full px-6 py-3 flex justify-between items-center shadow-lg shadow-earth-text/5 h-[80px]">
+    <nav class="fixed top-2 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl bg-earth-base/90 backdrop-blur-md border border-earth-text/10 rounded-[2rem] md:rounded-full px-4 md:px-6 py-4 md:py-3 flex flex-wrap md:flex-nowrap justify-between items-center shadow-lg shadow-earth-text/5 h-auto md:h-[80px]">
         
-        <div class="flex items-center gap-8">
+        <div class="flex items-center gap-8 w-1/2 md:w-auto order-1">
             <div class="text-xl md:text-2xl font-serif font-bold tracking-tight text-earth-text whitespace-nowrap">MERSH<span class="text-earth-mustard">KASHMIR</span></div>
             <div class="hidden lg:flex space-x-6 text-xs font-medium text-earth-lighttext uppercase tracking-widest">
                 <a href="#about" class="hover:text-earth-clay transition-colors">Heritage</a>
@@ -84,26 +93,26 @@
             </div>
         </div>
         
-        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div class="relative w-[280px] h-[56px] bg-earth-secondary/50 rounded-full flex items-center p-1 shadow-inner border border-earth-text/5">
-                <div id="toggleBg" class="absolute left-1 top-1 h-[48px] w-[calc(50%-4px)] bg-earth-mustard rounded-full transition-transform duration-300 ease-in-out z-0"></div>
+        <div class="w-full md:w-auto order-3 md:order-2 mt-4 md:mt-0 relative md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 flex justify-center">
+            <div class="relative w-full max-w-[280px] md:w-[280px] h-[50px] md:h-[56px] bg-earth-secondary/50 rounded-full flex items-center p-1 shadow-inner border border-earth-text/5">
+                <div id="toggleBg" class="absolute left-1 top-1 h-[42px] md:h-[48px] w-[calc(50%-4px)] bg-earth-mustard rounded-full transition-transform duration-300 ease-in-out z-0"></div>
                 
-                <button onclick="setCategory('wearable')" id="btn-wearable" class="w-1/2 z-10 text-xs font-bold uppercase tracking-widest text-earth-text transition-colors duration-300 text-center">
+                <button onclick="setCategory('wearable')" id="btn-wearable" class="w-1/2 z-10 text-[10px] md:text-xs font-bold uppercase tracking-widest text-earth-text transition-colors duration-300 text-center py-2">
                     Shop Wear
                 </button>
                 
-                <button onclick="setCategory('dryfruit')" id="btn-dryfruit" class="w-1/2 z-10 text-xs font-bold uppercase tracking-widest text-earth-lighttext transition-colors duration-300 text-center">
+                <button onclick="setCategory('dryfruit')" id="btn-dryfruit" class="w-1/2 z-10 text-[10px] md:text-xs font-bold uppercase tracking-widest text-earth-lighttext transition-colors duration-300 text-center py-2">
                     Shop Food
                 </button>
             </div>
         </div>
         
-        <div class="flex items-center gap-4">
-            <a href="javascript:void(0)" onclick="toggleWishlist()" class="relative text-earth-text hover:text-earth-clay">
+        <div class="flex items-center justify-end gap-4 w-1/2 md:w-auto order-2 md:order-3">
+            <a href="javascript:void(0)" onclick="toggleWishlist()" class="relative text-earth-text hover:text-earth-clay p-2">
                 <i class="fa fa-heart-o text-xl"></i>
-                <span id="wishlistCount" class="absolute -top-2 -right-2 bg-earth-mustard text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
+                <span id="wishlistCount" class="absolute top-0 right-0 bg-earth-mustard text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
             </a>
-            <a href="javascript:void(0)" onclick="toggleCart()" class="bg-earth-text text-earth-base px-5 py-2 rounded-full text-xs font-bold hover:bg-earth-clay transition-all shadow-md flex items-center gap-2 whitespace-nowrap">
+            <a href="javascript:void(0)" onclick="toggleCart()" class="bg-earth-text text-earth-base px-4 md:px-5 py-2 rounded-full text-xs font-bold hover:bg-earth-clay transition-all shadow-md flex items-center gap-2 whitespace-nowrap min-h-[40px]">
                 <i class="fa fa-shopping-bag"></i>
                 <span id="cartCount">0</span>
             </a>
@@ -116,83 +125,127 @@
             <div class="absolute inset-0 bg-gradient-to-b from-earth-text/30 via-transparent to-earth-text/60 mix-blend-multiply"></div>
         </div>
 
-        <div class="relative z-10 text-center max-w-4xl px-8 py-10 mt-12 flex flex-col items-center bg-black/20 backdrop-blur-md border border-white/10 rounded-[3rem] shadow-2xl">
+        <div class="relative z-10 text-center max-w-4xl px-4 md:px-8 py-10 mt-20 md:mt-12 flex flex-col items-center bg-earth-text/90 backdrop-blur-xl border border-white/20 rounded-[2rem] md:rounded-[3rem] shadow-2xl shadow-black/50 mx-4">
             
-            <div class="fade-in-up inline-block mb-6 px-4 py-1 border border-earth-base/40 rounded-full bg-earth-base/20 backdrop-blur-md text-xs uppercase tracking-widest text-white">
+            <div class="fade-in-up inline-block mb-6 px-4 py-1 border border-earth-base/40 rounded-full bg-earth-base/20 backdrop-blur-md text-[10px] md:text-xs uppercase tracking-widest text-white">
                 Single Origin • Sourced from the Same Tree
             </div>
             
-            <h1 class="fade-in-up delay-100 text-5xl md:text-8xl font-serif font-bold tracking-tight leading-none mb-6 text-white drop-shadow-sm">
+            <h1 class="fade-in-up delay-100 text-4xl md:text-8xl font-serif font-bold tracking-tight leading-tight md:leading-none mb-6 text-white drop-shadow-sm">
                 PURITY FROM <br> <span class="text-earth-mustard italic">KASHMIR</span>
             </h1>
-            <p class="fade-in-up delay-200 text-lg text-earth-base/90 mb-8 font-light max-w-xl">
+            <p class="fade-in-up delay-200 text-base md:text-lg text-earth-base/90 mb-8 font-light max-w-xl leading-relaxed">
                 Premium Mongra Saffron, Mamra Almonds, and Handwoven Pashmina Art delivered worldwide.
             </p>
         </div>
     </header>
 
-    <section id="about" class="py-20 px-4 bg-earth-base">
-        <div class="max-w-7xl mx-auto border-b border-earth-text/10 pb-16">
-            <div id="aboutGrid" class="grid md:grid-cols-3 gap-12 text-center md:text-left">
-                </div>
-        </div>
-    </section>
-
     <section id="wearables" class="pb-16 transition-opacity duration-300">
-        <div class="max-w-7xl mx-auto px-4 pt-16 text-center mb-12">
-            <h2 class="text-4xl font-serif font-bold text-earth-text mb-2">Shawls & Wearables</h2>
+        <div class="max-w-7xl mx-auto px-4 pt-12 md:pt-16 text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-earth-text mb-2">Shawls & Wearables</h2>
             <p class="text-earth-clay font-medium italic">Wrap yourself in heritage</p>
         </div>
-        <div id="wearablesContainer" class="flex flex-col gap-12">
-            </div>
+        <div id="wearablesContainer" class="flex flex-col gap-8 md:gap-12">
+        </div>
     </section>
 
     <section id="dryfruits" class="pb-16 transition-opacity duration-300 hidden">
-        <div class="max-w-7xl mx-auto px-4 pt-16 text-center mb-12">
-            <h2 class="text-4xl font-serif font-bold text-earth-text mb-2">Gourmet Provisions</h2>
+        <div class="max-w-7xl mx-auto px-4 pt-12 md:pt-16 text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-earth-text mb-2">Gourmet Provisions</h2>
             <p class="text-earth-clay font-medium italic">The Kashmir Pantry</p>
         </div>
 
-        <div id="provisionsContainer" class="flex flex-col gap-12">
-            </div>
+        <div id="provisionsContainer" class="flex flex-col gap-8 md:gap-12">
+        </div>
     </section>
 
-    <footer id="contact" class="bg-earth-text text-earth-base rounded-t-[3rem] pt-24 pb-12 px-6 mt-12">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-            <div class="col-span-1 md:col-span-2 pr-8">
-                <h2 class="text-3xl font-serif font-bold tracking-tight mb-6">MERSH<span class="text-earth-mustard">KASHMIR</span></h2>
-                <p class="max-w-sm text-earth-secondary/60 mb-8 leading-relaxed">
-                    Handcrafted heritage from the valley. Saffron, Pashmina & Dry Fruits delivered with love and authenticity.
+    <section id="about" class="py-12 md:py-20 px-4 bg-earth-base">
+        <div class="max-w-7xl mx-auto border-b border-earth-text/10 pb-12 md:pb-16">
+            <div id="aboutGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center md:text-left">
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-earth-text text-earth-base rounded-t-[3rem] pt-16 md:pt-24 pb-12 px-6 mt-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+            
+            <div class="space-y-6">
+                <h2 class="text-3xl font-serif font-bold tracking-tight">MERSH<span class="text-earth-mustard">KASHMIR</span></h2>
+                <p class="text-xs text-earth-secondary/80 font-medium uppercase tracking-widest">Purity from the Valley</p>
+                <p class="text-earth-secondary/60 leading-relaxed text-sm">
+                    Premium ethnic wear & hand-picked dry fruits from Kashmir, curated with care and authenticity.
                 </p>
-                <div class="inline-flex items-center gap-2 border-b-2 border-earth-mustard pb-1 font-bold cursor-pointer hover:text-earth-mustard transition-all">
-                    <span>Contact on WhatsApp</span>
-                    <i class="fa fa-whatsapp"></i>
+                <ul class="text-sm text-earth-secondary/60 space-y-2 pt-2">
+                    <li><i class="fa fa-check text-earth-mustard mr-2"></i>100% Natural & Authentic Products</li>
+                    <li><i class="fa fa-check text-earth-mustard mr-2"></i>Handpicked & Ethically Sourced</li>
+                    <li><i class="fa fa-check text-earth-mustard mr-2"></i>Pan-India Delivery (Manual)</li>
+                    <li><i class="fa fa-check text-earth-mustard mr-2"></i>Personalized WhatsApp Support</li>
+                </ul>
+                <div class="flex gap-4 pt-2">
+                    <a href="https://wa.me/919070877667" class="w-12 h-12 md:w-10 md:h-10 rounded-full bg-earth-secondary/10 flex items-center justify-center hover:bg-earth-mustard hover:text-white transition-all">
+                        <i class="fa fa-whatsapp text-xl md:text-lg"></i>
+                    </a>
+                    <a href="#" class="w-12 h-12 md:w-10 md:h-10 rounded-full bg-earth-secondary/10 flex items-center justify-center hover:bg-earth-mustard hover:text-white transition-all">
+                        <i class="fa fa-instagram text-xl md:text-lg"></i>
+                    </a>
                 </div>
             </div>
             
             <div>
                 <h4 class="font-bold mb-6 text-lg font-serif text-white">Collections</h4>
-                <ul class="space-y-4 text-earth-secondary/60 font-medium">
-                    <li><a href="javascript:void(0)" onclick="setCategory('wearable')" class="hover:text-white transition-colors">Pashmina</a></li>
-                    <li><a href="javascript:void(0)" onclick="setCategory('wearable')" class="hover:text-white transition-colors">Stoles</a></li>
-                    <li><a href="javascript:void(0)" onclick="setCategory('dryfruit')" class="hover:text-white transition-colors">Saffron</a></li>
+                <ul class="space-y-4 text-earth-secondary/60 font-medium text-sm">
+                    <li><a href="javascript:void(0)" onclick="setCategory('wearable')" class="hover:text-white transition-colors py-2 block md:inline">Ethnic Wear</a></li>
+                    <li><a href="javascript:void(0)" onclick="setCategory('wearable')" class="hover:text-white transition-colors py-2 block md:inline">Winter Wear / Shawls</a></li>
+                    <li><a href="javascript:void(0)" onclick="setCategory('dryfruit')" class="hover:text-white transition-colors py-2 block md:inline">Dry Fruits</a></li>
+                    <li><a href="javascript:void(0)" onclick="setCategory('dryfruit')" class="hover:text-white transition-colors py-2 block md:inline">Saffron & Spices</a></li>
+                    <li><a href="javascript:void(0)" onclick="setCategory('dryfruit')" class="hover:text-white transition-colors py-2 block md:inline">Gift Hampers</a></li>
                 </ul>
             </div>
             
             <div>
-                <h4 class="font-bold mb-6 text-lg font-serif text-white">Info</h4>
-                <ul class="space-y-4 text-earth-secondary/60 font-medium">
-                    <li><a href="#" class="hover:text-white transition-colors">Wholesale</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Shipping</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                <h4 class="font-bold mb-6 text-lg font-serif text-white">Information</h4>
+                <ul class="space-y-4 text-earth-secondary/60 font-medium text-sm">
+                    <li><a href="#" class="hover:text-white transition-colors py-2 block md:inline">How to Order (WhatsApp)</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors py-2 block md:inline">Shipping & Delivery</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors py-2 block md:inline">Returns & Exchanges</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors py-2 block md:inline">Privacy Policy</a></li>
+                    <li class="pt-4 border-t border-earth-secondary/10 mt-4"><a href="#" class="hover:text-white transition-colors py-2 block md:inline">Home</a></li>
+                    <li><a href="#about" class="hover:text-white transition-colors py-2 block md:inline">About Us</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold mb-6 text-lg font-serif text-white">Contact Us</h4>
+                <ul class="space-y-5 text-earth-secondary/60 font-medium text-sm">
+                    <li class="flex items-start gap-3">
+                        <i class="fa fa-map-marker mt-1 text-earth-mustard"></i>
+                        <span>Srinagar, Jammu & Kashmir,<br>India - 190001</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa fa-envelope text-earth-mustard"></i>
+                        <span>contact@mershkashmir.com</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa fa-whatsapp text-earth-mustard"></i>
+                        <span>+91 90708 77667</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="fa fa-clock-o mt-1 text-earth-mustard"></i>
+                        <span>Mon - Sat: 10:00 AM - 7:00 PM</span>
+                    </li>
                 </ul>
             </div>
         </div>
         
-        <div class="max-w-7xl mx-auto pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-earth-secondary/40">
-            <p>© 2025 Mersh Kashmir.</p>
-            <div class="flex gap-6 mt-4 md:mt-0">
-                <span>Secure Payments</span>
+        <div class="max-w-7xl mx-auto pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-earth-secondary/40 gap-6 text-center md:text-left">
+            <div>
+                <p>© 2025 Mersh Kashmir. All rights reserved.</p>
+                <p class="text-xs mt-1 text-earth-secondary/20">Crafted with care in India 🇮🇳</p>
+            </div>
+            
+            <div class="flex flex-col md:items-end gap-1">
+                <span class="text-earth-secondary/80 font-medium">💬 Orders confirmed via WhatsApp</span>
+                <span class="text-earth-secondary/40 text-[10px] md:text-xs">💵 Payment handled manually after confirmation | 🚚 Shipping arranged manually</span>
             </div>
         </div>
     </footer>
@@ -200,7 +253,7 @@
     <div id="cartSidebar" class="sidebar closed fixed inset-y-0 right-0 w-full md:w-[400px] bg-white z-[60] shadow-2xl flex flex-col">
         <div class="p-6 border-b border-earth-secondary flex justify-between items-center bg-earth-base">
             <h4 class="font-serif font-bold text-xl text-earth-text">Your Basket</h4>
-            <button onclick="toggleCart()" class="text-earth-text text-2xl hover:text-earth-clay">&times;</button>
+            <button onclick="toggleCart()" class="text-earth-text text-2xl hover:text-earth-clay px-2">&times;</button>
         </div>
         <div id="cartContent" class="flex-1 overflow-y-auto p-6">
             <p class="text-center text-earth-lighttext mt-10">Your basket is currently empty.</p>
@@ -216,7 +269,7 @@
     <div id="wishlistSidebar" class="sidebar closed fixed inset-y-0 right-0 w-full md:w-[400px] bg-white z-[60] shadow-2xl flex flex-col">
         <div class="p-6 border-b border-earth-secondary flex justify-between items-center bg-earth-base">
             <h4 class="font-serif font-bold text-xl text-earth-text">Your Wishlist</h4>
-            <button onclick="toggleWishlist()" class="text-earth-text text-2xl hover:text-earth-clay">&times;</button>
+            <button onclick="toggleWishlist()" class="text-earth-text text-2xl hover:text-earth-clay px-2">&times;</button>
         </div>
         <div id="wishlistContent" class="flex-1 overflow-y-auto p-6">
             <p class="text-center text-earth-lighttext mt-10">Your wishlist is empty.</p>
@@ -226,25 +279,25 @@
                 <span>Total Value:</span>
                 <span id="wishlistTotalDisplay">₹ 0</span>
             </div>
-            <button onclick="moveAllToCart()" class="w-full py-3 rounded-full bg-earth-text text-white font-bold hover:bg-earth-clay transition-colors uppercase tracking-widest text-xs">
+            <button onclick="moveAllToCart()" class="w-full py-3 rounded-full bg-earth-text text-white font-bold hover:bg-earth-clay transition-colors uppercase tracking-widest text-xs min-h-[44px]">
                 Move All to Cart
             </button>
         </div>
     </div>
 
-    <div id="productDetailModal" class="hidden fixed inset-0 z-[70] flex items-center justify-center">
+    <div id="productDetailModal" class="hidden fixed inset-0 z-[70] flex items-center justify-center p-4 md:p-0">
         <div class="absolute inset-0 bg-earth-text/80 backdrop-blur-sm" onclick="closeProductModal()"></div>
-        <div class="relative bg-earth-base w-full max-w-4xl mx-4 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 text-earth-text hover:text-earth-clay text-3xl font-bold">&times;</button>
-            <div class="w-full md:w-1/2 bg-white p-8 flex flex-col items-center justify-center">
-                <img id="modalMainImg" src="" class="max-h-[300px] object-contain mb-4 rounded-lg" alt="Product Image">
+        <div class="relative bg-earth-base w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 text-earth-text hover:text-earth-clay text-3xl font-bold bg-white/50 rounded-full w-10 h-10 flex items-center justify-center md:bg-transparent">&times;</button>
+            <div class="w-full md:w-1/2 bg-white p-6 md:p-8 flex flex-col items-center justify-center">
+                <img id="modalMainImg" src="" class="max-h-[200px] md:max-h-[300px] object-contain mb-4 rounded-lg" alt="Product Image">
                 <div id="modalThumbnails" class="flex gap-2 justify-center"></div>
             </div>
-            <div class="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto">
-                <h3 id="modalTitle" class="font-serif font-bold text-3xl text-earth-text mb-2"></h3>
+            <div class="w-full md:w-1/2 p-6 md:p-12 overflow-y-auto">
+                <h3 id="modalTitle" class="font-serif font-bold text-2xl md:text-3xl text-earth-text mb-2"></h3>
                 <h4 id="modalPrice" class="text-xl font-bold text-earth-mustard mb-6"></h4>
-                <p id="modalDesc" class="text-earth-lighttext leading-relaxed mb-8"></p>
-                <button id="modalAddToCartBtn" class="w-full py-4 bg-earth-text text-white font-bold rounded-full hover:bg-earth-clay transition-colors uppercase tracking-widest text-sm shadow-md">
+                <p id="modalDesc" class="text-earth-lighttext leading-relaxed mb-8 text-sm md:text-base"></p>
+                <button id="modalAddToCartBtn" class="w-full py-4 bg-earth-text text-white font-bold rounded-full hover:bg-earth-clay transition-colors uppercase tracking-widest text-sm shadow-md min-h-[44px]">
                     Add to Cart
                 </button>
             </div>
@@ -253,36 +306,36 @@
 
     <div id="checkoutModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center px-4">
         <div class="absolute inset-0 bg-earth-text/90 backdrop-blur-sm" onclick="closeCheckoutModal()"></div>
-        <div class="relative bg-earth-base w-full max-w-lg rounded-3xl p-8 shadow-2xl">
+        <div class="relative bg-earth-base w-full max-w-lg rounded-3xl p-6 md:p-8 shadow-2xl max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-6 border-b border-earth-secondary pb-4">
                 <h5 class="font-serif font-bold text-2xl text-earth-text">Request Order</h5>
-                <button onclick="closeCheckoutModal()" class="text-2xl text-earth-text hover:text-earth-clay">&times;</button>
+                <button onclick="closeCheckoutModal()" class="text-2xl text-earth-text hover:text-earth-clay px-2">&times;</button>
             </div>
             <p class="text-sm text-earth-lighttext text-center mb-6">
                 Enter details to finalize on WhatsApp.
             </p>
             <form id="checkoutForm" onsubmit="submitOrderForm(event)" class="space-y-4">
                 <input type="text" id="c_name" name="from_name" placeholder="Full Name" required 
-                       class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text">
+                       class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text text-base">
                 <div class="grid grid-cols-2 gap-4">
                     <input type="tel" id="c_phone" name="phone_number" placeholder="Phone" required 
-                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text">
+                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text text-base">
                     <input type="email" id="c_email" name="user_email" placeholder="Email" required 
-                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text">
+                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text text-base">
                 </div>
                 <textarea id="c_address" name="address" rows="2" placeholder="Delivery Address" required
-                          class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text"></textarea>
+                          class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text text-base"></textarea>
                 <div class="grid grid-cols-2 gap-4">
                     <input type="text" id="c_city" name="city" placeholder="City" required 
-                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text">
+                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text text-base">
                     <input type="text" id="c_zip" name="zip" placeholder="Pincode" required 
-                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text">
+                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text text-base">
                 </div>
                 <div class="flex justify-between items-center py-4 text-earth-text font-bold">
                     <span>Total Estimate:</span>
                     <span id="checkoutTotalAmount" class="text-earth-mustard text-xl">₹ 0</span>
                 </div>
-                <button type="submit" class="btn-whatsapp-submit w-full py-4 rounded-full bg-green-500 text-white font-bold hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg">
+                <button type="submit" class="btn-whatsapp-submit w-full py-4 rounded-full bg-green-500 text-white font-bold hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg min-h-[50px]">
                     <i class="fa fa-whatsapp text-xl"></i> Confirm on WhatsApp
                 </button>
             </form>
@@ -338,14 +391,14 @@
         // --- ABOUT DATA ---
         const aboutData = {
             wearable: [
-                { icon: 'fa-diamond', color: 'text-earth-olive', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-olive', title: 'Authentic Heritage', desc: 'Crafted with techniques passed down through generations of Kashmiri artisans.' },
-                { icon: 'fa-hand-paper-o', color: 'text-earth-clay', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-clay', title: 'Handwoven Pashmina', desc: 'Each shawl is hand-spun and hand-woven, taking months to complete.' },
-                { icon: 'fa-paint-brush', color: 'text-earth-mustard', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-mustard', title: 'Intricate Embroidery', desc: 'Featuring Sozni and Aari needlework that tells the story of the valley.' }
+                { icon: 'fa-map-marker', color: 'text-earth-olive', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-olive', title: 'Our Roots', desc: 'Based in Kashmir, reflecting local craftsmanship and natural produce.' },
+                { icon: 'fa-shopping-bag', color: 'text-earth-clay', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-clay', title: 'Our Products', desc: 'Premium ethnic wear and hand-picked dry fruits, curated for quality and authenticity.' },
+                { icon: 'fa-whatsapp', color: 'text-earth-mustard', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-mustard', title: 'Our Process', desc: 'Every order is personally reviewed and confirmed via WhatsApp.' }
             ],
             dryfruit: [
-                { icon: 'fa-leaf', color: 'text-earth-olive', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-olive', title: '100% Organic', desc: 'Sourced directly from orchards in Pampore and Shopian. No preservatives.' },
-                { icon: 'fa-certificate', color: 'text-earth-clay', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-clay', title: 'GI Tagged Saffron', desc: 'Authentic Mongra Saffron with the highest crocin content for deep color.' },
-                { icon: 'fa-sun-o', color: 'text-earth-mustard', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-mustard', title: 'Farm Fresh', desc: 'Sun-dried naturally and packed at source to retain maximum nutrients.' }
+                { icon: 'fa-map-marker', color: 'text-earth-olive', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-olive', title: 'Our Roots', desc: 'Based in Kashmir, reflecting local craftsmanship and natural produce.' },
+                { icon: 'fa-shopping-bag', color: 'text-earth-clay', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-clay', title: 'Our Products', desc: 'Premium ethnic wear and hand-picked dry fruits, curated for quality and authenticity.' },
+                { icon: 'fa-whatsapp', color: 'text-earth-mustard', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-mustard', title: 'Our Process', desc: 'Every order is personally reviewed and confirmed via WhatsApp.' }
             ]
         };
 
@@ -358,7 +411,7 @@
             const data = aboutData[type];
             container.innerHTML = data.map(item => `
                 <div class="flex items-start gap-4 group">
-                    <div class="p-4 ${item.bg} rounded-full ${item.color} ${item.hoverBg} group-hover:text-white transition-colors">
+                    <div class="p-4 ${item.bg} rounded-full ${item.color} ${item.hoverBg} group-hover:text-white transition-colors shrink-0">
                         <i class="fa ${item.icon} text-xl"></i>
                     </div>
                     <div>
@@ -376,11 +429,11 @@
             const imgSrc = item.image; 
 
             return `
-                <div class="bg-white border border-earth-secondary rounded-[2rem] p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative group flex flex-col h-full">
+                <div class="bg-white border border-earth-secondary rounded-[2rem] p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative group flex flex-col h-full no-hover-mobile">
                     <button class="absolute top-6 right-6 z-10 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center ${heartClass} hover:text-red-500 transition-colors" onclick="toggleHeart(event, '${type}', ${masterIndex})">
                         <i class="fa ${heartIcon} text-lg"></i>
                     </button>
-                    <div class="h-64 rounded-[1.5rem] bg-gray-100 mb-4 overflow-hidden cursor-pointer" onclick="openProductModal('${type}', ${masterIndex})">
+                    <div class="h-64 rounded-[1.5rem] bg-gray-100 mb-4 overflow-hidden cursor-pointer shrink-0" onclick="openProductModal('${type}', ${masterIndex})">
                          <img src="${imgSrc}" onerror="this.src='${item.fallback}'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${item.name}">
                     </div>
                     <div class="flex-grow">
@@ -389,7 +442,7 @@
                     </div>
                     <div class="flex justify-between items-center border-t border-earth-secondary pt-4 mt-4 gap-2">
                         <span class="font-bold text-earth-mustard text-lg whitespace-nowrap">₹ ${item.price.toLocaleString()}</span>
-                        <button onclick="addToCart('${type}', ${masterIndex})" class="bg-earth-text text-earth-base px-4 py-2 rounded-full text-[10px] md:text-xs font-bold hover:bg-earth-clay transition-all shadow-md uppercase tracking-widest whitespace-nowrap">
+                        <button onclick="addToCart('${type}', ${masterIndex})" class="bg-earth-text text-earth-base px-4 py-3 md:py-2 rounded-full text-[10px] md:text-xs font-bold hover:bg-earth-clay transition-all shadow-md uppercase tracking-widest whitespace-nowrap min-h-[44px] flex items-center">
                             Add to Cart
                         </button>
                     </div>
@@ -430,13 +483,13 @@
                         const bgClass = isEven ? 'bg-earth-text' : 'bg-earth-mustard';
                         const textClass = isEven ? 'text-earth-base' : 'text-earth-text';
                         const subTextClass = isEven ? 'text-earth-mustard' : 'text-white/80';
-                        const wrapperClass = `${bgClass} ${textClass} py-16 px-4 rounded-[3rem] mx-2 md:mx-6 transition-opacity duration-300 shadow-xl`;
+                        const wrapperClass = `${bgClass} ${textClass} py-12 md:py-16 px-4 rounded-[2rem] md:rounded-[3rem] mx-2 md:mx-6 transition-opacity duration-300 shadow-xl`;
 
                         pContent += `
                             <div class="${wrapperClass}">
                                 <div class="max-w-7xl mx-auto">
-                                    <div class="text-center mb-12">
-                                        <h2 class="text-4xl font-serif font-bold mb-2">${cat.title}</h2>
+                                    <div class="text-center mb-8 md:mb-12">
+                                        <h2 class="text-3xl md:text-4xl font-serif font-bold mb-2">${cat.title}</h2>
                                         <p class="${subTextClass} font-medium italic">${cat.desc}</p>
                                     </div>
                                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -479,7 +532,7 @@
                         // Uniform 4-sided Shadow
                         const shadowClass = 'shadow-[0_0_40px_-10px_rgba(0,0,0,0.1)]';
                         
-                        const wrapperClass = `${bgClass} ${shadowClass} py-16 px-4 rounded-[3rem] mx-2 md:mx-6`;
+                        const wrapperClass = `${bgClass} ${shadowClass} py-12 md:py-16 px-4 rounded-[2rem] md:rounded-[3rem] mx-2 md:mx-6`;
                         const gridClass = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6';
 
                         // View More Logic
@@ -489,8 +542,8 @@
                         
                         // Modified View More Button to match Add to Cart Style
                         const viewMoreBtn = hasMore ? `
-                            <div class="text-center mt-12">
-                                <button onclick="toggleViewMore('${cat.id}', this)" class="bg-earth-text text-white font-bold rounded-full py-3 px-8 uppercase tracking-widest text-xs hover:bg-earth-clay transition-all shadow-md">
+                            <div class="text-center mt-8 md:mt-12">
+                                <button onclick="toggleViewMore('${cat.id}', this)" class="bg-earth-text text-white font-bold rounded-full py-3 px-8 uppercase tracking-widest text-xs hover:bg-earth-clay transition-all shadow-md min-h-[44px]">
                                     View Complete Collection
                                 </button>
                             </div>
@@ -499,7 +552,7 @@
                         htmlContent += `
                             <div class="${wrapperClass}">
                                 <div class="max-w-7xl mx-auto">
-                                    <div class="flex flex-col md:flex-row justify-between items-end mb-10 border-b border-earth-text/10 pb-4">
+                                    <div class="flex flex-col md:flex-row justify-between items-end mb-8 md:mb-10 border-b border-earth-text/10 pb-4">
                                         <div>
                                             <h3 class="text-2xl md:text-3xl font-serif font-bold text-earth-text">${cat.title}</h3>
                                             <p class="text-earth-lighttext mt-1 italic">${cat.desc}</p>
@@ -626,13 +679,13 @@
                             <small class="text-earth-lighttext">₹ ${item.price.toLocaleString()} x ${item.quantity}</small>
                         </div>
                         <div class="flex items-center bg-gray-100 rounded-lg">
-                            <button class="px-2 py-1 text-earth-text hover:text-earth-mustard font-bold" onclick="updateQuantity(${index}, -1)">-</button>
+                            <button class="px-3 py-2 text-earth-text hover:text-earth-mustard font-bold" onclick="updateQuantity(${index}, -1)">-</button>
                             <span class="px-2 text-sm font-bold">${item.quantity}</span>
-                            <button class="px-2 py-1 text-earth-text hover:text-earth-mustard font-bold" onclick="updateQuantity(${index}, 1)">+</button>
+                            <button class="px-3 py-2 text-earth-text hover:text-earth-mustard font-bold" onclick="updateQuantity(${index}, 1)">+</button>
                         </div>
                         <div class="w-1/5 text-right flex flex-col items-end">
                              <small class="font-bold text-earth-mustard">₹ ${(item.price * item.quantity).toLocaleString()}</small>
-                             <button class="text-red-400 hover:text-red-600 text-xs mt-1" onclick="removeItem(${index})"><i class="fa fa-times"></i></button>
+                             <button class="text-red-400 hover:text-red-600 text-xs mt-1 p-2" onclick="removeItem(${index})"><i class="fa fa-times"></i></button>
                         </div>
                     </div>`;
             }).join('');
@@ -644,7 +697,7 @@
             
             const btn = document.createElement("button");
             btn.id = "checkoutBtnDynamic";
-            btn.className = "w-full py-3 rounded-full bg-earth-text text-white font-bold hover:bg-earth-clay transition-colors mt-4 uppercase tracking-wider text-sm";
+            btn.className = "w-full py-4 rounded-full bg-earth-text text-white font-bold hover:bg-earth-clay transition-colors mt-4 uppercase tracking-wider text-sm min-h-[50px]";
             btn.innerHTML = `Proceed to Checkout <i class="fa fa-arrow-right ml-2"></i>`;
             btn.onclick = function() { openOrderModal(total); };
             checkout.appendChild(btn);
@@ -686,10 +739,10 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button class="bg-earth-secondary text-earth-text p-2 rounded-full text-xs hover:bg-earth-mustard hover:text-white transition-colors" title="Move to Cart" onclick="moveOneToCart(${index})">
+                        <button class="bg-earth-secondary text-earth-text p-3 md:p-2 rounded-full text-xs hover:bg-earth-mustard hover:text-white transition-colors" title="Move to Cart" onclick="moveOneToCart(${index})">
                             <i class="fa fa-shopping-bag"></i>
                         </button>
-                        <button class="text-gray-400 hover:text-red-500" onclick="removeFromWishlist(${index})">&times;</button>
+                        <button class="text-gray-400 hover:text-red-500 p-2" onclick="removeFromWishlist(${index})">&times;</button>
                     </div>
                 </div>
             `}).join('');
