@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERSH KASHMIR | Authentic Saffron, Pashmina & Dry Fruits</title>
+    <meta name="description" content="Buy authentic Kashmiri Saffron, Mamra Almonds, Walnuts, and Handwoven Pashmina Shawls directly from the valley.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("smlEJZKYBO1bpzx3F"); 
+       })();
+    </script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['Lato', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'] 
+                    },
+                    borderRadius: { '4xl': '3rem', '5xl': '4rem' },
+                    colors: {
+                        earth: {
+                            base: '#F9F7F2',      /* Oatmeal (Light) */
+                            secondary: '#EBE5D5', /* Medium Beige */
+                            tertiary: '#DED6C4',  /* Slightly Darker Beige */
+                            text: '#3E3226',      /* Espresso Brown */
+                            lighttext: '#6B5B4E', /* Soft Brown */
+                            mustard: '#D4A017',   /* Gold/Mustard */
+                            clay: '#B45F42',      /* Rust */
+                            olive: '#5F6F52',
+                            white: '#ffffff'
+                        }
+                    },
+                    boxShadow: {
+                        'inner-lg': 'inset 0 4px 6px -1px rgb(0 0 0 / 0.05), inset 0 2px 4px -2px rgb(0 0 0 / 0.05)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F9F7F2; }
+        ::-webkit-scrollbar-thumb { background: #D4A017; border-radius: 4px; }
+        
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        
+        /* Sidebar Transitions */
+        .sidebar {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar.active {
+            transform: translateX(0);
+        }
+        .sidebar.closed {
+            transform: translateX(100%);
+        }
+
+        /* Modal Transitions */
+        .modal-overlay { transition: opacity 0.3s ease; }
+        .modal-content-box { transition: transform 0.3s ease; }
+    </style>
+</head>
+<body class="bg-earth-base text-earth-text antialiased selection:bg-earth-mustard selection:text-white">
+
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl bg-earth-base/90 backdrop-blur-md border border-earth-text/10 rounded-full px-6 py-3 flex justify-between items-center shadow-lg shadow-earth-text/5 h-[80px]">
+        
+        <div class="flex items-center gap-8">
+            <div class="text-xl md:text-2xl font-serif font-bold tracking-tight text-earth-text whitespace-nowrap">MERSH<span class="text-earth-mustard">KASHMIR</span></div>
+            <div class="hidden lg:flex space-x-6 text-xs font-medium text-earth-lighttext uppercase tracking-widest">
+                <a href="#about" class="hover:text-earth-clay transition-colors">Heritage</a>
+                <a href="#contact" class="hover:text-earth-clay transition-colors">Contact</a>
+            </div>
+        </div>
+        
+        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div class="relative w-[280px] h-[56px] bg-earth-secondary/50 rounded-full flex items-center p-1 shadow-inner border border-earth-text/5">
+                <div id="toggleBg" class="absolute left-1 top-1 h-[48px] w-[calc(50%-4px)] bg-earth-mustard rounded-full transition-transform duration-300 ease-in-out z-0"></div>
+                
+                <button onclick="setCategory('wearable')" id="btn-wearable" class="w-1/2 z-10 text-xs font-bold uppercase tracking-widest text-earth-text transition-colors duration-300 text-center">
+                    Shop Wear
+                </button>
+                
+                <button onclick="setCategory('dryfruit')" id="btn-dryfruit" class="w-1/2 z-10 text-xs font-bold uppercase tracking-widest text-earth-lighttext transition-colors duration-300 text-center">
+                    Shop Food
+                </button>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-4">
+            <a href="javascript:void(0)" onclick="toggleWishlist()" class="relative text-earth-text hover:text-earth-clay">
+                <i class="fa fa-heart-o text-xl"></i>
+                <span id="wishlistCount" class="absolute -top-2 -right-2 bg-earth-mustard text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">0</span>
+            </a>
+            <a href="javascript:void(0)" onclick="toggleCart()" class="bg-earth-text text-earth-base px-5 py-2 rounded-full text-xs font-bold hover:bg-earth-clay transition-all shadow-md flex items-center gap-2 whitespace-nowrap">
+                <i class="fa fa-shopping-bag"></i>
+                <span id="cartCount">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <header class="relative h-[90vh] w-full bg-earth-secondary rounded-b-[4rem] overflow-hidden flex items-center justify-center">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=2076&auto=format&fit=crop" class="w-full h-full object-cover opacity-90" alt="Kashmir Landscape">
+            <div class="absolute inset-0 bg-gradient-to-b from-earth-text/30 via-transparent to-earth-text/60 mix-blend-multiply"></div>
+        </div>
+
+        <div class="relative z-10 text-center max-w-4xl px-8 py-10 mt-12 flex flex-col items-center bg-black/20 backdrop-blur-md border border-white/10 rounded-[3rem] shadow-2xl">
+            
+            <div class="fade-in-up inline-block mb-6 px-4 py-1 border border-earth-base/40 rounded-full bg-earth-base/20 backdrop-blur-md text-xs uppercase tracking-widest text-white">
+                Single Origin • Sourced from the Same Tree
+            </div>
+            
+            <h1 class="fade-in-up delay-100 text-5xl md:text-8xl font-serif font-bold tracking-tight leading-none mb-6 text-white drop-shadow-sm">
+                PURITY FROM <br> <span class="text-earth-mustard italic">KASHMIR</span>
+            </h1>
+            <p class="fade-in-up delay-200 text-lg text-earth-base/90 mb-8 font-light max-w-xl">
+                Premium Mongra Saffron, Mamra Almonds, and Handwoven Pashmina Art delivered worldwide.
+            </p>
+        </div>
+    </header>
+
+    <section id="about" class="py-20 px-4 bg-earth-base">
+        <div class="max-w-7xl mx-auto border-b border-earth-text/10 pb-16">
+            <div id="aboutGrid" class="grid md:grid-cols-3 gap-12 text-center md:text-left">
+                </div>
+        </div>
+    </section>
+
+    <section id="wearables" class="pb-16 transition-opacity duration-300">
+        <div class="max-w-7xl mx-auto px-4 pt-16 text-center mb-12">
+            <h2 class="text-4xl font-serif font-bold text-earth-text mb-2">Shawls & Wearables</h2>
+            <p class="text-earth-clay font-medium italic">Wrap yourself in heritage</p>
+        </div>
+        <div id="wearablesContainer" class="flex flex-col gap-12">
+            </div>
+    </section>
+
+    <section id="dryfruits" class="pb-16 transition-opacity duration-300 hidden">
+        <div class="max-w-7xl mx-auto px-4 pt-16 text-center mb-12">
+            <h2 class="text-4xl font-serif font-bold text-earth-text mb-2">Gourmet Provisions</h2>
+            <p class="text-earth-clay font-medium italic">The Kashmir Pantry</p>
+        </div>
+
+        <div id="provisionsContainer" class="flex flex-col gap-12">
+            </div>
+    </section>
+
+    <footer id="contact" class="bg-earth-text text-earth-base rounded-t-[3rem] pt-24 pb-12 px-6 mt-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+            <div class="col-span-1 md:col-span-2 pr-8">
+                <h2 class="text-3xl font-serif font-bold tracking-tight mb-6">MERSH<span class="text-earth-mustard">KASHMIR</span></h2>
+                <p class="max-w-sm text-earth-secondary/60 mb-8 leading-relaxed">
+                    Handcrafted heritage from the valley. Saffron, Pashmina & Dry Fruits delivered with love and authenticity.
+                </p>
+                <div class="inline-flex items-center gap-2 border-b-2 border-earth-mustard pb-1 font-bold cursor-pointer hover:text-earth-mustard transition-all">
+                    <span>Contact on WhatsApp</span>
+                    <i class="fa fa-whatsapp"></i>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bold mb-6 text-lg font-serif text-white">Collections</h4>
+                <ul class="space-y-4 text-earth-secondary/60 font-medium">
+                    <li><a href="javascript:void(0)" onclick="setCategory('wearable')" class="hover:text-white transition-colors">Pashmina</a></li>
+                    <li><a href="javascript:void(0)" onclick="setCategory('wearable')" class="hover:text-white transition-colors">Stoles</a></li>
+                    <li><a href="javascript:void(0)" onclick="setCategory('dryfruit')" class="hover:text-white transition-colors">Saffron</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bold mb-6 text-lg font-serif text-white">Info</h4>
+                <ul class="space-y-4 text-earth-secondary/60 font-medium">
+                    <li><a href="#" class="hover:text-white transition-colors">Wholesale</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Shipping</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-sm text-earth-secondary/40">
+            <p>© 2025 Mersh Kashmir.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <span>Secure Payments</span>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cartSidebar" class="sidebar closed fixed inset-y-0 right-0 w-full md:w-[400px] bg-white z-[60] shadow-2xl flex flex-col">
+        <div class="p-6 border-b border-earth-secondary flex justify-between items-center bg-earth-base">
+            <h4 class="font-serif font-bold text-xl text-earth-text">Your Basket</h4>
+            <button onclick="toggleCart()" class="text-earth-text text-2xl hover:text-earth-clay">&times;</button>
+        </div>
+        <div id="cartContent" class="flex-1 overflow-y-auto p-6">
+            <p class="text-center text-earth-lighttext mt-10">Your basket is currently empty.</p>
+        </div>
+        <div id="checkoutArea" class="p-6 border-t border-earth-secondary bg-earth-base hidden">
+            <div class="flex justify-between text-xl font-bold text-earth-text mb-4">
+                <span>Total:</span>
+                <span id="totalDisplay">₹ 0</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="wishlistSidebar" class="sidebar closed fixed inset-y-0 right-0 w-full md:w-[400px] bg-white z-[60] shadow-2xl flex flex-col">
+        <div class="p-6 border-b border-earth-secondary flex justify-between items-center bg-earth-base">
+            <h4 class="font-serif font-bold text-xl text-earth-text">Your Wishlist</h4>
+            <button onclick="toggleWishlist()" class="text-earth-text text-2xl hover:text-earth-clay">&times;</button>
+        </div>
+        <div id="wishlistContent" class="flex-1 overflow-y-auto p-6">
+            <p class="text-center text-earth-lighttext mt-10">Your wishlist is empty.</p>
+        </div>
+        <div id="wishlistActions" class="p-6 border-t border-earth-secondary bg-earth-base hidden">
+            <div class="flex justify-between text-lg font-bold text-earth-text mb-4">
+                <span>Total Value:</span>
+                <span id="wishlistTotalDisplay">₹ 0</span>
+            </div>
+            <button onclick="moveAllToCart()" class="w-full py-3 rounded-full bg-earth-text text-white font-bold hover:bg-earth-clay transition-colors uppercase tracking-widest text-xs">
+                Move All to Cart
+            </button>
+        </div>
+    </div>
+
+    <div id="productDetailModal" class="hidden fixed inset-0 z-[70] flex items-center justify-center">
+        <div class="absolute inset-0 bg-earth-text/80 backdrop-blur-sm" onclick="closeProductModal()"></div>
+        <div class="relative bg-earth-base w-full max-w-4xl mx-4 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 text-earth-text hover:text-earth-clay text-3xl font-bold">&times;</button>
+            <div class="w-full md:w-1/2 bg-white p-8 flex flex-col items-center justify-center">
+                <img id="modalMainImg" src="" class="max-h-[300px] object-contain mb-4 rounded-lg" alt="Product Image">
+                <div id="modalThumbnails" class="flex gap-2 justify-center"></div>
+            </div>
+            <div class="w-full md:w-1/2 p-8 md:p-12 overflow-y-auto">
+                <h3 id="modalTitle" class="font-serif font-bold text-3xl text-earth-text mb-2"></h3>
+                <h4 id="modalPrice" class="text-xl font-bold text-earth-mustard mb-6"></h4>
+                <p id="modalDesc" class="text-earth-lighttext leading-relaxed mb-8"></p>
+                <button id="modalAddToCartBtn" class="w-full py-4 bg-earth-text text-white font-bold rounded-full hover:bg-earth-clay transition-colors uppercase tracking-widest text-sm shadow-md">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkoutModal" class="hidden fixed inset-0 z-[80] flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-earth-text/90 backdrop-blur-sm" onclick="closeCheckoutModal()"></div>
+        <div class="relative bg-earth-base w-full max-w-lg rounded-3xl p-8 shadow-2xl">
+            <div class="flex justify-between items-center mb-6 border-b border-earth-secondary pb-4">
+                <h5 class="font-serif font-bold text-2xl text-earth-text">Request Order</h5>
+                <button onclick="closeCheckoutModal()" class="text-2xl text-earth-text hover:text-earth-clay">&times;</button>
+            </div>
+            <p class="text-sm text-earth-lighttext text-center mb-6">
+                Enter details to finalize on WhatsApp.
+            </p>
+            <form id="checkoutForm" onsubmit="submitOrderForm(event)" class="space-y-4">
+                <input type="text" id="c_name" name="from_name" placeholder="Full Name" required 
+                       class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="tel" id="c_phone" name="phone_number" placeholder="Phone" required 
+                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text">
+                    <input type="email" id="c_email" name="user_email" placeholder="Email" required 
+                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text">
+                </div>
+                <textarea id="c_address" name="address" rows="2" placeholder="Delivery Address" required
+                          class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text"></textarea>
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" id="c_city" name="city" placeholder="City" required 
+                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text">
+                    <input type="text" id="c_zip" name="zip" placeholder="Pincode" required 
+                           class="w-full p-4 rounded-xl border border-earth-secondary focus:border-earth-mustard outline-none bg-white text-earth-text">
+                </div>
+                <div class="flex justify-between items-center py-4 text-earth-text font-bold">
+                    <span>Total Estimate:</span>
+                    <span id="checkoutTotalAmount" class="text-earth-mustard text-xl">₹ 0</span>
+                </div>
+                <button type="submit" class="btn-whatsapp-submit w-full py-4 rounded-full bg-green-500 text-white font-bold hover:bg-green-600 transition-colors flex items-center justify-center gap-2 shadow-lg">
+                    <i class="fa fa-whatsapp text-xl"></i> Confirm on WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA ---
+        const provisionsData = [
+            { name: 'Premium Mongra Saffron (1g)', price: 450, tags: ['saffron'], image: 'images/saffron.jpg', fallback: 'https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?auto=format&fit=crop&w=500&q=60', description: 'Highest grade A1 saffron filaments.' },
+            { name: 'Saffron Gift Box (5g)', price: 2100, tags: ['saffron'], image: 'images/saffron-box.jpg', fallback: 'https://images.unsplash.com/photo-1546552356-3fae876a61ca?auto=format&fit=crop&w=500&q=60', description: 'Luxury wooden box packaging, perfect for gifting.' },
+            { name: 'Lacha Saffron (Cooking)', price: 300, tags: ['saffron'], image: 'images/lacha.jpg', fallback: 'https://images.unsplash.com/photo-1615485925763-867862f80c6c?auto=format&fit=crop&w=500&q=60', description: 'Traditional Lacha saffron for daily cooking and sweets.' },
+            { name: 'Kashmiri Saffron Powder', price: 500, tags: ['saffron'], image: 'images/powder.jpg', fallback: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=500&q=60', description: 'Pure ground saffron for instant color and aroma.' },
+            { name: 'Mamra Almonds', price: 900, tags: ['nuts'], image: 'images/almonds.png', fallback: 'https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?auto=format&fit=crop&w=500&q=60', description: 'Oil-rich, sweet kernels directly from Pampore orchards.' },
+            { name: 'Kagzi Walnuts (In Shell)', price: 550, tags: ['nuts'], image: 'images/walnut-shell.jpg', fallback: 'https://images.unsplash.com/photo-1574542616230-07e0c822709e?auto=format&fit=crop&w=500&q=60', description: 'Paper-thin shell walnuts, easy to crack by hand.' },
+            { name: 'Snow White Walnut Kernels', price: 1200, tags: ['nuts'], image: 'images/walnut.jpg', fallback: 'https://images.unsplash.com/photo-1563567786274-942eb1d96001?auto=format&fit=crop&w=500&q=60', description: 'Premium snow-white kernels, vacuum packed.' },
+            { name: 'Kashmiri Cashews', price: 800, tags: ['nuts'], image: 'images/cashew.jpg', fallback: 'https://images.unsplash.com/photo-1536591375315-196000ea3678?auto=format&fit=crop&w=500&q=60', description: 'Crunchy and sweet, roasted to perfection.' },
+            { name: 'Sun-Dried Apricots', price: 400, tags: ['fruits'], image: 'images/apricot.jpg', fallback: 'https://images.unsplash.com/photo-1597143710507-6cb56230e9d6?auto=format&fit=crop&w=500&q=60', description: 'Naturally dried without sulfur, sweet and tangy.' },
+            { name: 'Kashmiri Figs (Anjeer)', price: 650, tags: ['fruits'], image: 'images/figs.jpg', fallback: 'https://images.unsplash.com/photo-1606935265532-69273c52e41c?auto=format&fit=crop&w=500&q=60', description: 'Soft, sweet discs of energy, rich in fiber.' },
+            { name: 'Dried Cranberries', price: 550, tags: ['fruits'], image: 'images/cranberry.jpg', fallback: 'https://images.unsplash.com/photo-1615486511269-e77a41506456?auto=format&fit=crop&w=500&q=60', description: 'Tart and sweet, perfect for baking or snacking.' },
+            { name: 'Black Raisins', price: 350, tags: ['fruits'], image: 'images/raisins.jpg', fallback: 'https://images.unsplash.com/photo-1628157796932-d8225301825b?auto=format&fit=crop&w=500&q=60', description: 'Seedless black raisins, high in iron.' },
+            { name: 'Shahi Kahwa Mix', price: 450, tags: ['brews'], image: 'images/kahwa.jpg', fallback: 'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=500&q=60', description: 'Instant mix with saffron, almonds and spices.' },
+            { name: 'Saffron Infused Honey', price: 850, tags: ['brews'], image: 'images/saf_honey.jpg', fallback: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=500&q=60', description: 'Pure acacia honey infused with Mongra saffron strands.' },
+            { name: 'White Honey', price: 900, tags: ['brews'], image: 'images/white_honey.jpg', fallback: 'https://images.unsplash.com/photo-1587049352851-8d4e8918d107?auto=format&fit=crop&w=500&q=60', description: 'Rare white honey from the mountains of Kashmir.' },
+            { name: 'Kashmiri Green Tea Leaves', price: 350, tags: ['brews'], image: 'images/greentea.jpg', fallback: 'https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?auto=format&fit=crop&w=500&q=60', description: 'Whole leaf green tea, gentle and aromatic.' }
+        ];
+
+        const wearablesData = [
+            { name: 'Royal Pashmina Heritage', price: 18000, tags: ['heritage'], image: 'images/shawl1.jpg', fallback: 'https://images.unsplash.com/photo-1609170884630-f8d2235c3641?auto=format&fit=crop&w=500&q=60', description: 'The crown jewel of Kashmir. Authentic hand-spun Pashmina.' },
+            { name: 'Antique Jamawar', price: 45000, tags: ['heritage', 'embroidery'], image: 'images/shawl_jam.jpg', fallback: 'https://images.unsplash.com/photo-1596918852382-72c722513470?auto=format&fit=crop&w=500&q=60', description: 'Full body embroidery covering every inch of the fabric.' },
+            { name: 'Shahmina Classic', price: 15000, tags: ['heritage'], image: 'images/shawl_plain.jpg', fallback: 'https://images.unsplash.com/photo-1585854465853-2945d4a65e79?auto=format&fit=crop&w=500&q=60', description: 'Solid color pure Pashmina, understated luxury.' },
+            { name: 'Kalamkari Pashmina', price: 22000, tags: ['heritage', 'pattern'], image: 'images/shawl_kalam.jpg', fallback: 'https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?auto=format&fit=crop&w=500&q=60', description: 'Hand-painted details fused with hand embroidery.' },
+            { name: 'Kani Weave Stole', price: 8500, tags: ['kani', 'pattern'], image: 'images/stole1.jpg', fallback: 'https://images.unsplash.com/photo-1574201635302-388dd92a4c3f?auto=format&fit=crop&w=500&q=60', description: 'Intricate Kani weave stole, a symbol of Kashmiri heritage.' },
+            { name: 'Floral Kani Shawl', price: 12500, tags: ['kani', 'pattern'], image: 'images/kani_floral.jpg', fallback: 'https://images.unsplash.com/photo-1610128960682-c5df583484f9?auto=format&fit=crop&w=500&q=60', description: 'Rich floral patterns woven into the fabric itself.' },
+            { name: 'Paisley Motif Wrap', price: 6500, tags: ['kani', 'pattern'], image: 'images/paisley.jpg', fallback: 'https://images.unsplash.com/photo-1582657279374-63309e378d30?auto=format&fit=crop&w=500&q=60', description: 'Traditional paisley motifs in vibrant earth tones.' },
+            { name: 'Geometric Kani', price: 7200, tags: ['kani', 'pattern'], image: 'images/geo_kani.jpg', fallback: 'https://images.unsplash.com/photo-1605763240004-7e93b172d754?auto=format&fit=crop&w=500&q=60', description: 'Modern geometric interpretation of traditional weaving.' },
+            { name: 'Daily Silk Blend', price: 1200, tags: ['everyday'], image: 'images/silk_blend.jpg', fallback: 'https://images.unsplash.com/photo-1584030373081-f37b7bb4fa8e?auto=format&fit=crop&w=500&q=60', description: 'Lightweight silk-wool blend for office and daily wear.' },
+            { name: 'Ombre Stole', price: 1500, tags: ['everyday'], image: 'images/ombre.jpg', fallback: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=500&q=60', description: 'Beautiful gradient dyed stole, perfect for evening wear.' },
+            { name: 'Merino Wool Scarf', price: 950, tags: ['everyday'], image: 'images/merino.jpg', fallback: 'https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?auto=format&fit=crop&w=500&q=60', description: 'Soft, warm, and durable merino wool scarf.' },
+            { name: 'Checkered Wrap', price: 1100, tags: ['everyday'], image: 'images/check.jpg', fallback: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=500&q=60', description: 'Classic checkered pattern, unisex design.' },
+            { name: 'Embroidered Feran', price: 3200, tags: ['feran', 'embroidery'], image: 'images/feran.jpg', fallback: 'https://images.unsplash.com/photo-1589202316493-41c30084f7fc?auto=format&fit=crop&w=500&q=60', description: 'Traditional winter attire made from pure wool with Aari work.' },
+            { name: 'Velvet Phiran', price: 4500, tags: ['feran'], image: 'images/velvet_feran.jpg', fallback: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=60', description: 'Luxurious velvet phiran with silver tilla embroidery.' },
+            { name: 'Pashmina Kurti', price: 5500, tags: ['feran', 'suit'], image: 'images/kurti.jpg', fallback: 'https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=500&q=60', description: 'Modern cut kurti made from warm Pashmina fabric.' },
+            { name: 'Winter Wool Coat', price: 6000, tags: ['feran'], image: 'images/coat.jpg', fallback: 'https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=500&q=60', description: 'Tailored wool coat with Kashmiri motif borders.' },
+            { name: 'Sozni Needlework Shawl', price: 28000, tags: ['embroidery', 'heritage'], image: 'images/sozni.jpg', fallback: 'https://images.unsplash.com/photo-1616886362483-3665cc65f377?auto=format&fit=crop&w=500&q=60', description: 'Fine needle embroidery that takes months to complete.' },
+            { name: 'Aari Work Stole', price: 3500, tags: ['embroidery', 'everyday'], image: 'images/aari.jpg', fallback: 'https://images.unsplash.com/photo-1596918852328-3e4b37014d5e?auto=format&fit=crop&w=500&q=60', description: 'Vibrant hook embroidery featuring floral creepers.' },
+            { name: '3-Piece Unstitched Suit', price: 4200, tags: ['suit'], image: 'images/suit_3pc.jpg', fallback: 'https://images.unsplash.com/photo-1617113937231-794337f6854d?auto=format&fit=crop&w=500&q=60', description: 'Woolen suit material with embroidered dupatta.' },
+            { name: 'Silk Co-ord Set', price: 6500, tags: ['suit'], image: 'images/coord.jpg', fallback: 'https://images.unsplash.com/photo-1550614000-4b9519e02d48?auto=format&fit=crop&w=500&q=60', description: 'Modern silk co-ord set with subtle Kashmiri detailing.' },
+            { name: 'Leather Clutch (Crewel)', price: 1800, tags: ['accessory'], image: 'images/clutch.jpg', fallback: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=500&q=60', description: 'Genuine leather clutch with crewel embroidery.' },
+            { name: 'Embroidered Potli', price: 900, tags: ['accessory'], image: 'images/potli.jpg', fallback: 'https://images.unsplash.com/photo-1616954388427-d4f40e02410a?auto=format&fit=crop&w=500&q=60', description: 'Festive potli bag, perfect for weddings.' }
+        ];
+
+        // --- ABOUT DATA ---
+        const aboutData = {
+            wearable: [
+                { icon: 'fa-diamond', color: 'text-earth-olive', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-olive', title: 'Authentic Heritage', desc: 'Crafted with techniques passed down through generations of Kashmiri artisans.' },
+                { icon: 'fa-hand-paper-o', color: 'text-earth-clay', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-clay', title: 'Handwoven Pashmina', desc: 'Each shawl is hand-spun and hand-woven, taking months to complete.' },
+                { icon: 'fa-paint-brush', color: 'text-earth-mustard', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-mustard', title: 'Intricate Embroidery', desc: 'Featuring Sozni and Aari needlework that tells the story of the valley.' }
+            ],
+            dryfruit: [
+                { icon: 'fa-leaf', color: 'text-earth-olive', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-olive', title: '100% Organic', desc: 'Sourced directly from orchards in Pampore and Shopian. No preservatives.' },
+                { icon: 'fa-certificate', color: 'text-earth-clay', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-clay', title: 'GI Tagged Saffron', desc: 'Authentic Mongra Saffron with the highest crocin content for deep color.' },
+                { icon: 'fa-sun-o', color: 'text-earth-mustard', bg: 'bg-earth-secondary', hoverBg: 'group-hover:bg-earth-mustard', title: 'Farm Fresh', desc: 'Sun-dried naturally and packed at source to retain maximum nutrients.' }
+            ]
+        };
+
+        let cartItems = [];
+        let wishlistItems = [];
+
+        // --- RENDER LOGIC ---
+        function renderAbout(type) {
+            const container = document.getElementById('aboutGrid');
+            const data = aboutData[type];
+            container.innerHTML = data.map(item => `
+                <div class="flex items-start gap-4 group">
+                    <div class="p-4 ${item.bg} rounded-full ${item.color} ${item.hoverBg} group-hover:text-white transition-colors">
+                        <i class="fa ${item.icon} text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif font-bold text-xl text-earth-text mb-2">${item.title}</h3>
+                        <p class="text-sm text-earth-lighttext leading-relaxed">${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function generateProductHTML(item, masterIndex, type) {
+            const inWishlist = wishlistItems.some(w => w.name === item.name);
+            const heartClass = inWishlist ? 'text-red-500' : 'text-gray-300';
+            const heartIcon = inWishlist ? 'fa-heart' : 'fa-heart-o';
+            const imgSrc = item.image; 
+
+            return `
+                <div class="bg-white border border-earth-secondary rounded-[2rem] p-4 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative group flex flex-col h-full">
+                    <button class="absolute top-6 right-6 z-10 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center ${heartClass} hover:text-red-500 transition-colors" onclick="toggleHeart(event, '${type}', ${masterIndex})">
+                        <i class="fa ${heartIcon} text-lg"></i>
+                    </button>
+                    <div class="h-64 rounded-[1.5rem] bg-gray-100 mb-4 overflow-hidden cursor-pointer" onclick="openProductModal('${type}', ${masterIndex})">
+                         <img src="${imgSrc}" onerror="this.src='${item.fallback}'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="${item.name}">
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="font-serif font-bold text-xl text-earth-text">${item.name}</h3>
+                        <p class="text-sm text-earth-lighttext mt-1 truncate">${item.description}</p>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-earth-secondary pt-4 mt-4 gap-2">
+                        <span class="font-bold text-earth-mustard text-lg whitespace-nowrap">₹ ${item.price.toLocaleString()}</span>
+                        <button onclick="addToCart('${type}', ${masterIndex})" class="bg-earth-text text-earth-base px-4 py-2 rounded-full text-[10px] md:text-xs font-bold hover:bg-earth-clay transition-all shadow-md uppercase tracking-widest whitespace-nowrap">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleViewMore(catId, btn) {
+            const moreDiv = document.getElementById(`more-${catId}`);
+            if (moreDiv.classList.contains('hidden')) {
+                moreDiv.classList.remove('hidden');
+                btn.innerText = "View Less";
+            } else {
+                moreDiv.classList.add('hidden');
+                btn.innerText = "View Complete Collection";
+            }
+        }
+
+        function renderCatalogs() {
+            // RENDER PROVISIONS (EATABLES)
+            const pContainer = document.getElementById('provisionsContainer');
+            if(pContainer) {
+                const provisionCats = [
+                    { id: 'saffron', title: 'The Red Gold Collection', desc: 'World\'s finest saffron from Pampore', filter: i => i.tags.includes('saffron') },
+                    { id: 'nuts', title: 'Orchard Fresh Kernels', desc: 'Crunchy, sweet, and oil-rich', filter: i => i.tags.includes('nuts') },
+                    { id: 'fruits', title: 'Sun-Dried Preserves', desc: 'Natural sweetness preserved by the sun', filter: i => i.tags.includes('fruits') },
+                    { id: 'brews', title: 'Brews & Nectars', desc: 'Warm Kahwa and pure honey', filter: i => i.tags.includes('brews') }
+                ];
+
+                let pContent = '';
+                provisionCats.forEach((cat, index) => {
+                    const filteredItems = provisionsData
+                        .map((item, index) => ({ item, index }))
+                        .filter(obj => cat.filter(obj.item));
+
+                    if(filteredItems.length > 0) {
+                        const isEven = index % 2 === 0;
+                        const bgClass = isEven ? 'bg-earth-text' : 'bg-earth-mustard';
+                        const textClass = isEven ? 'text-earth-base' : 'text-earth-text';
+                        const subTextClass = isEven ? 'text-earth-mustard' : 'text-white/80';
+                        const wrapperClass = `${bgClass} ${textClass} py-16 px-4 rounded-[3rem] mx-2 md:mx-6 transition-opacity duration-300 shadow-xl`;
+
+                        pContent += `
+                            <div class="${wrapperClass}">
+                                <div class="max-w-7xl mx-auto">
+                                    <div class="text-center mb-12">
+                                        <h2 class="text-4xl font-serif font-bold mb-2">${cat.title}</h2>
+                                        <p class="${subTextClass} font-medium italic">${cat.desc}</p>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                        ${filteredItems.map(obj => generateProductHTML(obj.item, obj.index, 'dryfruit')).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                pContainer.innerHTML = pContent;
+            }
+
+
+            // RENDER WEARABLES
+            const wContainer = document.getElementById('wearablesContainer');
+            if(wContainer) {
+                const categories = [
+                    { id: 'heritage', title: 'Pure & Heritage Shawls', desc: 'Timeless masterpieces', filter: i => i.tags.includes('heritage') },
+                    { id: 'kani', title: 'Kani & Pattern-Rich', desc: 'Woven stories of nature', filter: i => i.tags.includes('kani') || i.tags.includes('pattern') },
+                    { id: 'everyday', title: 'Everyday Wraps & Stoles', desc: 'Elegant simplicity for daily wear', filter: i => i.tags.includes('everyday') },
+                    { id: 'winter', title: 'Traditional Garments', desc: 'Authentic Ferans and outerwear', filter: i => i.tags.includes('feran') },
+                    { id: 'embroidery', title: 'Embroidery Spotlight', desc: 'Sozni, Aari & Hand Embroidery', filter: i => i.tags.includes('embroidery') },
+                    { id: 'suits', title: 'Suits & Dress Materials', desc: 'Tailor your own style', filter: i => i.tags.includes('suit') },
+                    { id: 'accessories', title: 'Accessories', desc: 'The perfect finishing touch', filter: i => i.tags.includes('accessory') }
+                ];
+
+                // Background Colors for Alternating 1-2-3 Pattern
+                const bgColors = ['bg-earth-base', 'bg-earth-secondary', 'bg-white'];
+
+                let htmlContent = '';
+                const itemsLimit = 4;
+
+                categories.forEach((cat, catIndex) => {
+                    const filteredItems = wearablesData.map((item, index) => ({ item, index })).filter(obj => cat.filter(obj.item));
+                    if(filteredItems.length > 0) {
+                        // Strict 1-2-3 Background Pattern
+                        const bgClass = bgColors[catIndex % 3];
+                        
+                        // Uniform 4-sided Shadow
+                        const shadowClass = 'shadow-[0_0_40px_-10px_rgba(0,0,0,0.1)]';
+                        
+                        const wrapperClass = `${bgClass} ${shadowClass} py-16 px-4 rounded-[3rem] mx-2 md:mx-6`;
+                        const gridClass = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6';
+
+                        // View More Logic
+                        const initialItems = filteredItems.slice(0, itemsLimit);
+                        const hasMore = filteredItems.length > itemsLimit;
+                        const hiddenItemsHTML = hasMore ? filteredItems.slice(itemsLimit).map(obj => generateProductHTML(obj.item, obj.index, 'wearable')).join('') : '';
+                        
+                        // Modified View More Button to match Add to Cart Style
+                        const viewMoreBtn = hasMore ? `
+                            <div class="text-center mt-12">
+                                <button onclick="toggleViewMore('${cat.id}', this)" class="bg-earth-text text-white font-bold rounded-full py-3 px-8 uppercase tracking-widest text-xs hover:bg-earth-clay transition-all shadow-md">
+                                    View Complete Collection
+                                </button>
+                            </div>
+                        ` : '';
+
+                        htmlContent += `
+                            <div class="${wrapperClass}">
+                                <div class="max-w-7xl mx-auto">
+                                    <div class="flex flex-col md:flex-row justify-between items-end mb-10 border-b border-earth-text/10 pb-4">
+                                        <div>
+                                            <h3 class="text-2xl md:text-3xl font-serif font-bold text-earth-text">${cat.title}</h3>
+                                            <p class="text-earth-lighttext mt-1 italic">${cat.desc}</p>
+                                        </div>
+                                        <div class="hidden md:block text-xs uppercase tracking-widest text-earth-mustard font-bold">Collection</div>
+                                    </div>
+                                    <div class="${gridClass}">
+                                        ${initialItems.map(obj => generateProductHTML(obj.item, obj.index, 'wearable')).join('')}
+                                    </div>
+                                    <div id="more-${cat.id}" class="${gridClass} mt-6 hidden">
+                                        ${hiddenItemsHTML}
+                                    </div>
+                                    ${viewMoreBtn}
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                wContainer.innerHTML = htmlContent;
+            }
+        }
+
+        // --- COMMON LOGIC ---
+        function setCategory(category) {
+            const wearablesSec = document.getElementById('wearables');
+            const dryfruitsSec = document.getElementById('dryfruits');
+            const toggleBg = document.getElementById('toggleBg');
+            const btnWear = document.getElementById('btn-wearable');
+            const btnDry = document.getElementById('btn-dryfruit');
+
+            if (category === 'wearable') {
+                wearablesSec.classList.remove('hidden');
+                dryfruitsSec.classList.add('hidden');
+                toggleBg.style.transform = 'translateX(0)';
+                btnWear.classList.remove('text-earth-lighttext');
+                btnWear.classList.add('text-earth-text');
+                btnDry.classList.remove('text-earth-text');
+                btnDry.classList.add('text-earth-lighttext');
+                renderAbout('wearable'); // Update About Section
+            } else {
+                wearablesSec.classList.add('hidden');
+                dryfruitsSec.classList.remove('hidden');
+                toggleBg.style.transform = 'translateX(100%)';
+                btnWear.classList.add('text-earth-lighttext');
+                btnWear.classList.remove('text-earth-text');
+                btnDry.classList.add('text-earth-text');
+                btnDry.classList.remove('text-earth-lighttext');
+                renderAbout('dryfruit'); // Update About Section
+            }
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById("cartSidebar");
+            if(sidebar.classList.contains('closed')) {
+                sidebar.classList.remove('closed');
+                sidebar.classList.add('active');
+                document.getElementById("wishlistSidebar").classList.add('closed');
+            } else {
+                sidebar.classList.add('closed');
+                sidebar.classList.remove('active');
+            }
+        }
+        function toggleWishlist() {
+            const sidebar = document.getElementById("wishlistSidebar");
+            if(sidebar.classList.contains('closed')) {
+                sidebar.classList.remove('closed');
+                sidebar.classList.add('active');
+                document.getElementById("cartSidebar").classList.add('closed');
+            } else {
+                sidebar.classList.add('closed');
+                sidebar.classList.remove('active');
+            }
+        }
+
+        function closeProductModal() { document.getElementById('productDetailModal').classList.add('hidden'); }
+        function closeCheckoutModal() { document.getElementById('checkoutModal').classList.add('hidden'); }
+
+        function getProduct(type, index) { return type === 'dryfruit' ? provisionsData[index] : wearablesData[index]; }
+
+        function addToCart(type, index) {
+            const product = getProduct(type, index);
+            addToCartObject(product);
+        }
+
+        // Helper to add object directly
+        function addToCartObject(product) {
+            const existingItem = cartItems.find(item => item.name === product.name);
+            if (existingItem) { existingItem.quantity += 1; } else { cartItems.push({ ...product, quantity: 1 }); }
+            updateCartUI();
+            const cart = document.getElementById("cartSidebar");
+            if(cart.classList.contains('closed')) toggleCart();
+        }
+
+        function updateQuantity(index, change) {
+            if (cartItems[index].quantity + change > 0) { cartItems[index].quantity += change; }
+            updateCartUI();
+        }
+        function removeItem(index) {
+            cartItems.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById("cartContent");
+            const checkout = document.getElementById("checkoutArea");
+            const totalCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+            document.getElementById("cartCount").innerText = totalCount;
+
+            if(cartItems.length === 0) {
+                container.innerHTML = '<p class="text-center text-earth-lighttext mt-10">Your basket is currently empty.</p>';
+                checkout.classList.add('hidden');
+                return;
+            }
+
+            checkout.classList.remove('hidden');
+            let total = 0;
+
+            container.innerHTML = cartItems.map((item, index) => {
+                total += item.price * item.quantity;
+                return `
+                    <div class="flex justify-between items-center mb-4 bg-white p-3 rounded-xl border border-earth-secondary/50">
+                        <div class="w-1/2">
+                            <div class="font-bold text-earth-text text-sm">${item.name}</div>
+                            <small class="text-earth-lighttext">₹ ${item.price.toLocaleString()} x ${item.quantity}</small>
+                        </div>
+                        <div class="flex items-center bg-gray-100 rounded-lg">
+                            <button class="px-2 py-1 text-earth-text hover:text-earth-mustard font-bold" onclick="updateQuantity(${index}, -1)">-</button>
+                            <span class="px-2 text-sm font-bold">${item.quantity}</span>
+                            <button class="px-2 py-1 text-earth-text hover:text-earth-mustard font-bold" onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
+                        <div class="w-1/5 text-right flex flex-col items-end">
+                             <small class="font-bold text-earth-mustard">₹ ${(item.price * item.quantity).toLocaleString()}</small>
+                             <button class="text-red-400 hover:text-red-600 text-xs mt-1" onclick="removeItem(${index})"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>`;
+            }).join('');
+
+            document.getElementById("totalDisplay").innerText = "₹ " + total.toLocaleString();
+
+            const oldBtn = document.getElementById("checkoutBtnDynamic");
+            if(oldBtn) oldBtn.remove();
+            
+            const btn = document.createElement("button");
+            btn.id = "checkoutBtnDynamic";
+            btn.className = "w-full py-3 rounded-full bg-earth-text text-white font-bold hover:bg-earth-clay transition-colors mt-4 uppercase tracking-wider text-sm";
+            btn.innerHTML = `Proceed to Checkout <i class="fa fa-arrow-right ml-2"></i>`;
+            btn.onclick = function() { openOrderModal(total); };
+            checkout.appendChild(btn);
+        }
+
+        function toggleHeart(event, type, index) {
+            event.stopPropagation(); 
+            const product = getProduct(type, index);
+            const existingIndex = wishlistItems.findIndex(item => item.name === product.name);
+            if (existingIndex > -1) { wishlistItems.splice(existingIndex, 1); } else { wishlistItems.push(product); }
+            renderCatalogs(); renderWishlist(); 
+        }
+
+        function renderWishlist() {
+            const container = document.getElementById("wishlistContent");
+            const actions = document.getElementById("wishlistActions");
+            const totalDisplay = document.getElementById("wishlistTotalDisplay");
+            
+            document.getElementById("wishlistCount").innerText = wishlistItems.length;
+            
+            if(wishlistItems.length === 0) {
+                container.innerHTML = '<p class="text-center text-earth-lighttext mt-10">Your wishlist is empty.</p>';
+                actions.classList.add('hidden');
+                return;
+            }
+            
+            actions.classList.remove('hidden');
+            let total = 0;
+
+            container.innerHTML = wishlistItems.map((item, index) => {
+                total += item.price;
+                return `
+                <div class="flex justify-between items-center mb-3 p-3 bg-white rounded-xl border border-earth-secondary/50">
+                    <div class="flex items-center">
+                        <img src="${item.image}" onerror="this.src='${item.fallback}'" class="w-12 h-12 object-cover rounded-lg mr-3">
+                        <div>
+                            <div class="font-bold text-earth-text text-sm truncate w-24">${item.name}</div>
+                            <small class="text-earth-mustard">₹ ${item.price.toLocaleString()}</small>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="bg-earth-secondary text-earth-text p-2 rounded-full text-xs hover:bg-earth-mustard hover:text-white transition-colors" title="Move to Cart" onclick="moveOneToCart(${index})">
+                            <i class="fa fa-shopping-bag"></i>
+                        </button>
+                        <button class="text-gray-400 hover:text-red-500" onclick="removeFromWishlist(${index})">&times;</button>
+                    </div>
+                </div>
+            `}).join('');
+            
+            totalDisplay.innerText = "₹ " + total.toLocaleString();
+        }
+        
+        function removeFromWishlist(index) { wishlistItems.splice(index, 1); renderWishlist(); renderCatalogs(); }
+
+        function moveOneToCart(index) {
+            const item = wishlistItems[index];
+            addToCartObject(item);
+            removeFromWishlist(index);
+        }
+
+        function moveAllToCart() {
+            wishlistItems.forEach(item => {
+                const existingItem = cartItems.find(c => c.name === item.name);
+                if (existingItem) { existingItem.quantity += 1; } else { cartItems.push({ ...item, quantity: 1 }); }
+            });
+            wishlistItems = [];
+            renderWishlist();
+            renderCatalogs();
+            updateCartUI();
+            toggleCart();
+        }
+
+        function openProductModal(type, index) {
+            const product = getProduct(type, index);
+            document.getElementById('modalTitle').innerText = product.name;
+            document.getElementById('modalPrice').innerText = `₹ ${product.price.toLocaleString()}`;
+            document.getElementById('modalDesc').innerText = product.description;
+            const mainImg = document.getElementById('modalMainImg');
+            mainImg.src = product.image;
+            mainImg.onerror = function() { this.src = product.fallback || ''; };
+            const gallery = product.gallery || [product.image];
+            document.getElementById('modalThumbnails').innerHTML = gallery.map(src => 
+                `<img src="${src}" onerror="this.src='${product.fallback}'" class="w-16 h-16 object-cover rounded border border-earth-secondary hover:border-earth-mustard cursor-pointer" onclick="changeModalImage(this.src)">`
+            ).join('');
+            document.getElementById('modalAddToCartBtn').onclick = function() { addToCart(type, index); closeProductModal(); };
+            document.getElementById('productDetailModal').classList.remove('hidden');
+        }
+        function changeModalImage(src) { document.getElementById('modalMainImg').src = src; }
+
+        function openOrderModal(total) {
+            toggleCart(); 
+            document.getElementById("checkoutTotalAmount").innerText = "₹ " + total.toLocaleString();
+            document.getElementById('checkoutModal').classList.remove('hidden');
+        }
+
+        function submitOrderForm(event) {
+            event.preventDefault(); 
+            const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            const itemsSummary = cartItems.map(item => `- ${item.name} x ${item.quantity} (₹${item.price * item.quantity})`).join('\n');
+            const templateParams = {
+                from_name: document.getElementById("c_name").value,
+                user_email: document.getElementById("c_email").value, 
+                phone_number: document.getElementById("c_phone").value,
+                address: document.getElementById("c_address").value,
+                city: document.getElementById("c_city").value,
+                zip: document.getElementById("c_zip").value,
+                total_amount: "₹ " + total.toLocaleString(),
+                order_details: itemsSummary
+            };
+            const submitBtn = document.querySelector('.btn-whatsapp-submit');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+            submitBtn.disabled = true;
+            const serviceID = "service_kffdvl8"; 
+            const templateID = "template_0oeemdu"; 
+            emailjs.send(serviceID, templateID, templateParams)
+                .then(() => {
+                    const adminPhone = "919070877667"; 
+                    let message = `*New Order Request - Mersh Kashmir*\n\n`;
+                    message += `*Name:* ${templateParams.from_name}\n`;
+                    message += `*Total:* ${templateParams.total_amount}\n`;
+                    message += `*Items:* \n${itemsSummary}\n\n`;
+                    message += `*Address:* ${templateParams.city}, ${templateParams.zip}\n`;
+                    message += `(Order confirmation email sent to ${templateParams.user_email})`;
+                    const url = `https://wa.me/${adminPhone}?text=${encodeURIComponent(message)}`;
+                    cartItems = [];
+                    updateCartUI();
+                    closeCheckoutModal();
+                    document.getElementById("checkoutForm").reset();
+                    window.location.href = url;
+                }, (err) => {
+                    alert("Network error. Please check your connection.");
+                    console.error('EmailJS Error:', err);
+                })
+                .finally(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => { 
+            renderCatalogs(); 
+            setCategory('wearable');
+        });
+    </script>
+</body>
+</html>
